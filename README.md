@@ -7,11 +7,11 @@ The idea is to run frp services as docker containers on the cloud. There are two
 
 ## Quick Start
 
-- Clone this repo
+- Clone this repo.
 - Edit the `token` field in `config.nix`, which should be a valid UUID.
 - Run `nix build .#frpsImage`.
-  - Make sure that you have the nix package manager installed
-  - And also, enable nix flake.
+  - Make sure that you have the [nix package manager](https://nixos.org) installed.
+  - And also, [enable nix flake](https://nixos.wiki/wiki/Flakes).
 - Your image should be located at `./result`. You can test it out locally as you please.
   - To load it into `podman`, run `podman load < result`.
 - Deploy and enjoy. The port mapping should be taken care of automatically.
