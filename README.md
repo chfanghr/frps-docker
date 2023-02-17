@@ -1,6 +1,6 @@
 # frps-docker
 
-The idea is to run frp services as docker containers on the cloud. There are two main benefits:
+The idea is to run [frp](https://github.com/fatedier/frp) services as docker containers on the cloud. There are two main benefits:
 
 - You don't need to manage a VPS; just deploy and forget.
 - The cost is *so* low compared to a VPS cause you won't need that much computational power.
