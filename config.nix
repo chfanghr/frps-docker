@@ -5,5 +5,6 @@
     allow_ports = "3000,40000-50000";
     authentication_method = "token";
     token = "<you auth token here>";
+    disable_log_color = true;
   };
 }
