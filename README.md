@@ -15,7 +15,3 @@ The idea is to run [frp](https://github.com/fatedier/frp) services as docker con
 - Your image should be located at `./result`. You can test it out locally as you please.
   - To load it into `podman`, run `podman load < result`.
 - Deploy and enjoy. The port mapping should be taken care of automatically.
-
-## TODO
-
-- Validate the configuration in the build phase.
