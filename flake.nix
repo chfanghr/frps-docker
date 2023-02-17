@@ -16,6 +16,9 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
+      flake = {
+        lib.mkImage = import ./mkImage.nix;
+      };
       perSystem = {
         config,
         pkgs,
