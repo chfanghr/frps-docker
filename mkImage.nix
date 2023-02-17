@@ -7,26 +7,35 @@
   lib,
   ...
 }: let
+  inherit (builtins) toString map concatMap listToAttrs;
+  inherit (lib.strings) splitString;
+  inherit (lib.attrsets) hasAttrByPath;
+
   configFile = writeTextFile {
     name = "frpsConfig";
     text = lib.generators.toINI {} frpsConfig;
     checkPhase = "${frp}/bin/frps verify -c $out";
   };
 
+  udpPort =
+    if hasAttrByPath ["common" "bind_udp_port"] frpsConfig
+    then frpsConfig.common.bind_udp_port
+    else frpsConfig.common.bind_port;
+
   exposedPorts =
-    builtins.listToAttrs
+    listToAttrs
     (
-      builtins.map (key: {
+      map (key: {
         name = key;
         value = {};
       })
-      (builtins.concatMap
+      (concatMap
         (port: [port "${port}/udp"])
-        (lib.strings.splitString "," frpsConfig.common.allow_ports))
+        (splitString "," frpsConfig.common.allow_ports))
     )
     // {
-      "${builtins.toString frpsConfig.common.bind_port}" = {};
-      "${builtins.toString frpsConfig.common.bind_udp_port}/udp" = {};
+      "${toString frpsConfig.common.bind_port}" = {};
+      "${toString udpPort}/udp" = {};
     };
 in
   dockerTools.buildLayeredImage {
